@@ -1,4 +1,4 @@
-Dataduct |build-status| |coverage-status|
+Dataduct |build-status| |coverage-status| 
 -----------------------------------------
 Dataduct is a wrapper built on top of AWS Datapipeline which makes it easy to
 create ETL jobs. All jobs can be specified as a series of steps in a YAML file
