@@ -1,6 +1,7 @@
 """
 Setup file for installation of the dataduct code
 """
+from __future__ import absolute_import
 from setuptools import find_packages
 from setuptools import setup
 
@@ -20,20 +21,25 @@ setup(
     license='Apache License 2.0',
     description='DataPipeline for Humans',
     install_requires=[
-        'boto>=2.38',
-        'MySQL-python>=1.2.3',
-        'matplotlib==1.5.3',
-        'pandas==0.18.1',
-        'psycopg2==2.7.3.1',
-        'pyparsing>=1.5.6',
-        'pytimeparse>=1.1.4',
-        'PyYAML>=3.11',
-        'testfixtures>=4.1.2',
-        'pyprind'
+    'pytimeparse>=1.1.8',
+    'requests>=2.21.0',
+    'six>=1.12.0',
+    'boto>=2.49.0',
+    'python-dateutil>=2.7.5',
+    'matplotlib>=3.0.2',
+    'pandas>=0.23.4',
+    'psycopg2>=2.7.6.1',
+    'pyparsing>=2.3.0',
+    'pytimeparse>=1.1.8',
+    'PyYAML>=3.13',
+    'testfixtures>=6.4.1',
+    'pyprind>=2.11.2',
+    'pandas>=0.23.4',
+    'boto3>=1.9.113'
     ],
     scripts=['bin/dataduct'],
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: UnStable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
@@ -41,7 +47,7 @@ setup(
         'Operating System :: MacOS :: MacOS 9',
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Unix',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Unix Shell',
         'Topic :: Database',
         'Topic :: Scientific/Engineering',

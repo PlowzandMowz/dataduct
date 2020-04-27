@@ -6,6 +6,7 @@ To make a function hookable, add the hook decorator like so:
 def function():
     ...
 """
+from __future__ import absolute_import
 import os
 import imp
 import sys

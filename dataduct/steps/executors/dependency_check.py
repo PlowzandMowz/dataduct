@@ -28,6 +28,8 @@ Expected behaviour of dependency step:
    Pipeline X should throw exception saying "Bad status"
 """
 
+from __future__ import absolute_import
+from __future__ import print_function
 import argparse
 import sys
 import time
@@ -36,6 +38,7 @@ from datetime import datetime
 from boto.sns import SNSConnection
 from dataduct.pipeline.utils import list_pipelines
 from dataduct.pipeline.utils import list_pipeline_instances
+from six.moves import map
 
 
 # Docs and API spelling of "CANCELED" don't match
@@ -57,7 +60,7 @@ def check_dependencies_ready(dependencies, start_date, dependencies_to_ignore):
         dependencies_to_ignore(list of str): dependencies to ignore if failed
     """
 
-    print 'Checking dependency at ', str(datetime.now())
+    print('Checking dependency at ', str(datetime.now()))
 
     dependency_ready = True
 
@@ -120,8 +123,8 @@ def dependency_check():
     )
 
     # Remove whitespace from dependency lists
-    dependencies = map(str.strip, args.dependencies)
-    dependencies_to_ignore = map(str.strip, args.dependencies_ok_to_fail)
+    dependencies = list(map(str.strip, args.dependencies))
+    dependencies_to_ignore = list(map(str.strip, args.dependencies_ok_to_fail))
 
     # Add the dependencies which can fail to the list of dependencies
     dependencies.extend(dependencies_to_ignore)
@@ -134,7 +137,7 @@ def dependency_check():
     # Map from dependency id to name
     dependencies = {pipeline_name_to_id[dep]: dep for dep in dependencies}
 
-    print 'Start checking for dependencies'
+    print('Start checking for dependencies')
     start_time = datetime.now()
 
     failures = []
@@ -142,7 +145,7 @@ def dependency_check():
 
     # Loop until all dependent pipelines have finished or failed
     while not dependencies_ready:
-        print 'checking'
+        print('checking')
         dependencies_ready, new_failures = check_dependencies_ready(dependencies,
                                                         args.start_date,
                                                         dependencies_to_ignore)
@@ -159,5 +162,5 @@ def dependency_check():
         else:
             raise Exception('ARN for SNS topic not specified in ETL config')
 
-    print 'Finished checking for dependencies. Total time spent: ',
-    print (datetime.now() - start_time).total_seconds(), ' seconds'
+    print('Finished checking for dependencies. Total time spent: ', end=' ')
+    print((datetime.now() - start_time).total_seconds(), ' seconds')

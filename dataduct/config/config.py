@@ -1,5 +1,6 @@
 """Module that maintains the config singleton object used across the package
 """
+from __future__ import absolute_import
 from os.path import expanduser
 from os.path import join
 from os import environ
@@ -51,7 +52,7 @@ def load_yaml(config_files):
     """
     for config_file in config_files:
         try:
-            return yaml.load(open(config_file, 'r').read())
+            return yaml.load(open(config_file, 'r').read(), yaml.FullLoader)
         except (OSError, IOError):
             continue
     raise IOError('Dataduct config file is missing')

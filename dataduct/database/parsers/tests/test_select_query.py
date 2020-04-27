@@ -1,6 +1,7 @@
 """Tests for select statement parser
 """
 
+from __future__ import absolute_import
 from nose.tools import eq_
 from nose.tools import raises
 from pyparsing import ParseException

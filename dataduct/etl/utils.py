@@ -1,5 +1,6 @@
 """Utility functions for processing etl steps
 """
+from __future__ import absolute_import
 import imp
 from ..config import Config
 from ..steps import *  # noqa

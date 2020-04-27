@@ -1,5 +1,6 @@
 """Tests for the SqlStatement class
 """
+from __future__ import absolute_import
 from nose.tools import assert_not_equal
 from nose.tools import eq_
 from nose.tools import raises

@@ -2,6 +2,7 @@
 """Walk over files in S3 output node and provide basic information about them
 """
 
+from __future__ import absolute_import
 import argparse
 from os import getenv
 from os import popen

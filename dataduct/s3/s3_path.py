@@ -1,6 +1,7 @@
 """
 Base class for storing a S3 Path
 """
+from __future__ import absolute_import
 from os.path import join
 from re import findall
 from re import sub

@@ -1,9 +1,10 @@
 """Credentials utility functions for connecting to various services
 """
+from __future__ import absolute_import
 import os
 import requests
 import sys
-from ConfigParser import SafeConfigParser
+from six.moves.configparser import SafeConfigParser
 
 
 def get_aws_credentials_from_iam():
@@ -73,7 +74,7 @@ def get_aws_credentials(filename=None):
     """
     try:
         aws_key, aws_secret, token = get_aws_credentials_from_iam()
-    except Exception, error:
+    except Exception as error:
         sys.stderr.write('Failed to get creds from IAM: %s \n' % error.message)
         aws_key, aws_secret, token = get_aws_credentials_from_file(filename)
 

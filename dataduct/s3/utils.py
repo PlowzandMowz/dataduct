@@ -1,6 +1,8 @@
 """
 Shared utility functions
 """
+from __future__ import absolute_import
+from __future__ import print_function
 import boto.s3
 import math
 import os
@@ -8,6 +10,7 @@ import pyprind
 
 from ..utils.exceptions import ETLInputError
 from .s3_path import S3Path
+from six.moves import range
 
 
 CHUNK_SIZE = 100*1024*1024  # 100mb
@@ -55,7 +58,7 @@ def _multipart_upload(bucket, key_name, file_path):
     source_size = os.stat(file_path).st_size
     chunks_count = int(math.ceil(source_size / float(CHUNK_SIZE)))
 
-    print 'Starting the multipart upload'
+    print('Starting the multipart upload')
 
     bar = pyprind.ProgPercent(chunks_count, monitor=True,
         title='Uploading %s' % file_path)
@@ -74,7 +77,7 @@ def _multipart_upload(bucket, key_name, file_path):
 
     if len(mp.get_all_parts()) == chunks_count:
         mp.complete_upload()
-        print "upload_file done"
+        print("upload_file done")
     else:
         mp.cancel_upload()
         raise "upload_file failed"

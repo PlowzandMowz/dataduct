@@ -1,5 +1,6 @@
 """Tests for the ETL actions
 """
+from __future__ import absolute_import
 import os
 
 import unittest

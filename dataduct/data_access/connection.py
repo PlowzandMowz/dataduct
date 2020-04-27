@@ -1,8 +1,9 @@
 """
 Connections to various databases such as RDS and Redshift
 """
-import MySQLdb
-import MySQLdb.cursors
+from __future__ import absolute_import
+#import MySQLdb
+#import MySQLdb.cursors
 import psycopg2
 
 from ..config import Config
@@ -63,11 +64,15 @@ def get_sql_config(database_name):
 
 @retry(CONNECTION_RETRIES, 60)
 @hook('connect_to_mysql')
+def rds_connection(database_name=None, sql_creds=None,cursorclass=None, **kwargs):
+    pass
+
+
+"""@retry(CONNECTION_RETRIES, 60)
+@hook('connect_to_mysql')
 def rds_connection(database_name=None, sql_creds=None,
                    cursorclass=MySQLdb.cursors.SSCursor, **kwargs):
-    """Fetch a mysql connection object to rds databases
-    """
-
+    #Fetch a mysql connection object to rds databases
     assert exactly_one(database_name, sql_creds), \
         'Either database or params needed'
 
@@ -82,7 +87,7 @@ def rds_connection(database_name=None, sql_creds=None,
         charset='utf8',      # Necessary for foreign chars
         cursorclass=cursorclass,
         **kwargs)
-    return connection
+    return connection"""
 
 
 
@@ -90,7 +95,7 @@ def get_postgres_config():
     """Get postgres config from config file and return the dictionary
     """
     if not hasattr(config,'postgres'):
-	raise ETLConfigError('Postgres config not found')
+        raise ETLConfigError('Postgres config not found')
     return config.postgres
 
 

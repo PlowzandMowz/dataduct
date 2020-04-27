@@ -1,5 +1,6 @@
 """Script that contains the sql script class
 """
+from __future__ import absolute_import
 from copy import deepcopy
 
 from .sql_statement import SqlStatement

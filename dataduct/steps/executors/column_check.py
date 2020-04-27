@@ -2,6 +2,8 @@
 with the correct values
 """
 
+from __future__ import absolute_import
+from __future__ import print_function
 import argparse
 import collections
 import re
@@ -10,6 +12,7 @@ import pandas.io.sql as pdsql
 from dataduct.data_access import redshift_connection
 from dataduct.data_access import rds_connection
 from dataduct.qa import ColumnCheck
+import six
 
 pandas.options.display.max_colwidth = 1000
 pandas.options.display.max_rows = 1000
@@ -52,7 +55,7 @@ def get_destination_data(sql, primary_keys):
     connection = redshift_connection()
 
     # Make primary_keys always a list of tuples
-    if isinstance(primary_keys[0], basestring):
+    if isinstance(primary_keys[0], six.string_types):
         primary_keys = [(pk) for pk in primary_keys]
 
     # Check whether it is not iterable
@@ -77,7 +80,7 @@ def get_destination_data(sql, primary_keys):
         sql,
     )
 
-    print query
+    print(query)
 
     data = pdsql.read_sql(query, connection)
     connection.close()
@@ -110,11 +113,11 @@ def column_check():
     # Open up a connection and read the source and destination tables
     source_data = get_source_data(args.source_sql, args.source_host,
                                    args.sample_size)
-    print source_data.to_string().encode('utf-8')
+    print(source_data.to_string().encode('utf-8'))
 
     destination_data = get_destination_data(args.destination_sql,
                                              list(source_data.index))
-    print destination_data.to_string().encode('utf-8')
+    print(destination_data.to_string().encode('utf-8'))
 
     check = ColumnCheck(source_data, destination_data,
                         name=args.test_name,

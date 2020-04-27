@@ -10,6 +10,7 @@ from ..s3 import S3LogPath
 from ..s3 import S3Path
 from ..utils import constants as const
 from ..utils.exceptions import ETLInputError
+import six
 
 config = Config()
 MAX_RETRIES = config.etl.get('MAX_RETRIES', const.ZERO)
@@ -292,7 +293,7 @@ class ETLStep(object):
         depends_on = list()
         combined_node = self.create_s3_data_node()
 
-        for string_key, input_node in input_nodes.iteritems():
+        for string_key, input_node in six.iteritems(input_nodes):
             dest_uri = S3Path(key=string_key, is_directory=True,
                               parent_dir=combined_node.path())
             copy_activity = self.copy_s3(input_node=input_node,
@@ -380,7 +381,7 @@ class ETLStep(object):
         Returns:
             result: All pipeline objects that are created for this step
         """
-        return self._objects.values()
+        return list(self._objects.values())
 
     @property
     def activities(self):
@@ -454,7 +455,7 @@ class ETLStep(object):
 
             # Add dependencies from steps that create input nodes
             if isinstance(input_node, dict):
-                required_nodes = input_node.values()
+                required_nodes = list(input_node.values())
             else:
                 required_nodes = [input_node]
 

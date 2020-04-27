@@ -1,6 +1,7 @@
 """Tests for create view parser
 """
 
+from __future__ import absolute_import
 from unittest import TestCase
 from nose.tools import eq_
 from ..create_view import parse_create_view

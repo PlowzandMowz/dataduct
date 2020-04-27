@@ -1,5 +1,6 @@
 """Script containing the relation class object
 """
+from __future__ import absolute_import
 from copy import deepcopy
 from .sql import SqlScript
 from ..config import Config

@@ -9,6 +9,8 @@ from ..utils.exceptions import ETLInputError
 from ..utils.helpers import exactly_one
 from ..utils.helpers import parse_path
 from .qa_transform import QATransformStep
+from six.moves import range
+from six.moves import zip
 
 config = Config()
 COLUMN_TEMPLATE = "COALESCE(CONCAT({column_name}, ''), '')"
@@ -78,10 +80,10 @@ class ColumnCheckStep(QATransformStep):
 
             destination_table = Table(SqlScript(destination_table_string))
             destination_columns = destination_table.columns()
-            primary_key_index, primary_keys = zip(*[
+            primary_key_index, primary_keys = list(zip(*[
                 (idx, col.name)
                 for idx, col in enumerate(destination_columns)
-                if col.primary])
+                if col.primary]))
 
             if len(destination_columns) == len(primary_key_index):
                 raise ValueError('Cannot check table without non-pk columns')
@@ -100,7 +102,7 @@ class ColumnCheckStep(QATransformStep):
 
         elif destination_sql is not None:
             select_stmnt = SelectStatement(destination_sql)
-            primary_key_index = range(len(select_stmnt.columns()))[:-1]
+            primary_key_index = list(range(len(select_stmnt.columns())))[:-1]
 
         return SqlScript(destination_sql).sql(), primary_key_index
 

@@ -1,6 +1,7 @@
 """
 ETL step wrapper for creating an S3 node for input from local files
 """
+from __future__ import absolute_import
 from dataduct.steps import ExtractLocalStep
 import logging
 logger = logging.getLogger(__name__)

@@ -1,6 +1,7 @@
 """
 ETL step wrapper for SqlActivity can be executed on Ec2
 """
+from __future__ import absolute_import
 from .etl_step import ETLStep
 from ..pipeline import SqlActivity
 from ..database import SqlScript

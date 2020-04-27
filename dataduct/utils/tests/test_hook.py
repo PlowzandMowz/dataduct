@@ -1,5 +1,6 @@
 """Tests for the hooks framework
 """
+from __future__ import absolute_import
 from unittest import TestCase
 from testfixtures import TempDirectory
 from nose.tools import eq_
