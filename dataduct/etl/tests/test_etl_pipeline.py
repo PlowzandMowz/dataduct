@@ -1,5 +1,6 @@
 """Tests for the ETL Pipeline object
 """
+from __future__ import absolute_import
 import unittest
 from nose.tools import raises
 from nose.tools import eq_

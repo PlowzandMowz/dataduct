@@ -2,6 +2,7 @@
 Pipeline object class for emr resource
 """
 
+from __future__ import absolute_import
 from ..config import Config
 from ..s3 import S3LogPath
 from ..utils import constants as const

@@ -1,5 +1,6 @@
 """Tests for credentials file
 """
+from __future__ import absolute_import
 from mock import patch
 from nose.tools import eq_
 import json

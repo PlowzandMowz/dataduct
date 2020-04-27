@@ -1,5 +1,6 @@
 """Tests for the HistoryTable class
 """
+from __future__ import absolute_import
 from unittest import TestCase
 from nose.tools import raises
 from nose.tools import eq_
@@ -7,6 +8,7 @@ from nose.tools import eq_
 from ..sql.sql_script import SqlScript
 from ..table import Table
 from ..history_table import HistoryTable
+from six.moves import zip
 
 
 class TestHistoryTable(TestCase):

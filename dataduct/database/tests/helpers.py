@@ -1,10 +1,12 @@
 """Helpers for Database Tests
 """
+from __future__ import absolute_import
 from nose.tools import eq_
 
 from ..table import Table
 from ..view import View
 from ..sql import SqlScript
+from six.moves import zip
 
 
 def create_table(sql):

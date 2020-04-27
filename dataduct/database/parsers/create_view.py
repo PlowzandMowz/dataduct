@@ -1,5 +1,6 @@
 """Create SQL parser
 """
+from __future__ import absolute_import
 from pyparsing import Group
 from pyparsing import Optional
 from pyparsing import StringEnd

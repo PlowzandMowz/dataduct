@@ -1,11 +1,12 @@
 """
 Class definition for DataPipeline
 """
+from __future__ import absolute_import
 import csv
 import os
 import yaml
 
-from StringIO import StringIO
+from io import StringIO
 from copy import deepcopy
 from datetime import datetime
 from datetime import timedelta
@@ -34,6 +35,7 @@ from ..utils.exceptions import ETLInputError
 from ..utils.helpers import get_s3_base_path
 
 import logging
+import six
 logger = logging.getLogger(__name__)
 
 config = Config()
@@ -185,7 +187,7 @@ class ETLPipeline(object):
             object_class=Schedule,
             frequency=self.frequency,
             time_delta=self.time_delta,
-            load_hour=self.load_hour,
+            load_hour=int(self.load_hour),
             load_minutes=self.load_min,
         )
         if self.topic_arn is None and SNS_TOPIC_ARN_FAILURE is None:
@@ -418,7 +420,7 @@ class ETLPipeline(object):
             output(dict of S3Node): map of string : S3Node
         """
         output = dict()
-        for key, value in input_node.iteritems():
+        for key, value in six.iteritems(input_node):
             if key not in self.intermediate_nodes:
                 raise ETLInputError('Input reference does not exist')
             output[value] = self.intermediate_nodes[key]
@@ -441,7 +443,7 @@ class ETLPipeline(object):
         if is_teardown:
             teardown_dependencies = deepcopy(self._steps)
             teardown_dependencies.pop(step.id)
-            step.add_required_steps(teardown_dependencies.values())
+            step.add_required_steps(list(teardown_dependencies.values()))
 
         # Update intermediate_nodes dict
         if isinstance(step.output, dict):
@@ -523,7 +525,7 @@ class ETLPipeline(object):
             result(list of PipelineObject): All steps related to the ETL
             i.e. all base objects as well as ones owned by steps
         """
-        result = self._base_objects.values()
+        result = list(self._base_objects.values())
         # Add all steps owned by the ETL steps
         for step in self._steps.values():
             result.extend(step.pipeline_objects)
@@ -613,7 +615,7 @@ class ETLPipeline(object):
             return None
 
         tags = []
-        for key, value in tag_config.iteritems():
+        for key, value in six.iteritems(tag_config):
             if 'string' in value and 'variable' in value:
                 raise ETLInputError(
                     'Tag config can not have both string and variable')

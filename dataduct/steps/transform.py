@@ -1,6 +1,7 @@
 """
 ETL step wrapper for shell command activity can be executed on Ec2 / EMR
 """
+from __future__ import absolute_import
 from ..pipeline import S3Node
 from ..pipeline import ShellCommandActivity
 from ..s3 import S3Directory
@@ -13,6 +14,7 @@ from ..utils.helpers import get_modified_s3_path
 from .etl_step import ETLStep
 
 import logging
+import six
 logger = logging.getLogger(__name__)
 
 SCRIPT_ARGUMENT_TYPE_STRING = 'string'
@@ -146,7 +148,7 @@ class TransformStep(ETLStep):
                 if isinstance(argument, dict):
                     result.extend([
                         self.input_format(key, get_modified_s3_path(value))
-                        for key, value in argument.iteritems()
+                        for key, value in six.iteritems(argument)
                     ])
                 else:
                     result.append(get_modified_s3_path(str(argument)))
@@ -154,7 +156,7 @@ class TransformStep(ETLStep):
 
         elif isinstance(script_arguments, dict):
             return [self.input_format(key, get_modified_s3_path(value))
-                    for key, value in script_arguments.iteritems()]
+                    for key, value in six.iteritems(script_arguments)]
 
         elif isinstance(script_arguments, str):
             return [get_modified_s3_path(script_arguments)]

@@ -1,5 +1,6 @@
 """Script containing the table class object
 """
+from __future__ import absolute_import
 from ..utils.helpers import stringify_credentials
 from .column import Column
 from .parsers import create_exists_clone
@@ -87,7 +88,7 @@ class Table(Relation):
     def columns(self):
         """Unsorted list of columns in the table
         """
-        return sorted(self._columns.values(), key=lambda x: x.position)
+        return sorted(list(self._columns.values()), key=lambda x: x.position)
 
     def column(self, column_name):
         """Get the column with the given name

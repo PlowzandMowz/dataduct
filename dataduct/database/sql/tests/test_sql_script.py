@@ -1,5 +1,6 @@
 """Tests for the SqlScript class
 """
+from __future__ import absolute_import
 from unittest import TestCase
 from nose.tools import eq_
 from nose.tools import assert_not_equal

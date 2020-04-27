@@ -1,6 +1,7 @@
 """SQL parser utils and constants
 """
 
+from __future__ import absolute_import
 from pyparsing import CaselessKeyword
 from pyparsing import Combine
 from pyparsing import Forward

@@ -1,5 +1,6 @@
 """SQL parser helpers
 """
+from __future__ import absolute_import
 from pyparsing import delimitedList
 from pyparsing import Optional
 from pyparsing import ParseResults
@@ -9,6 +10,7 @@ from .utils import _temp
 from .utils import _temporary
 from .utils import _if_not_exists
 from .utils import _or_replace
+import six
 
 # Functions
 isNotEmpty = lambda x: len(x) > 0
@@ -36,7 +38,7 @@ def to_dict(input):
     """Purge the ParseResults from output dictionary
     """
     output = dict()
-    for key, value in input.asDict().iteritems():
+    for key, value in six.iteritems(input.asDict()):
         if isinstance(value, ParseResults):
             output[key] = value.asList()
         else:

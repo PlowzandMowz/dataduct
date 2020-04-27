@@ -1,5 +1,7 @@
 """Base class for QA steps that provides template function for publishing
 """
+from __future__ import absolute_import
+from __future__ import print_function
 from boto.sns import SNSConnection
 from datetime import datetime
 import os
@@ -12,6 +14,7 @@ from ..s3 import S3File
 from ..utils import constants as const
 from ..utils.helpers import exactly_one
 from ..utils.helpers import get_s3_base_path
+from six.moves import map
 
 QA_TEST_ROW_LENGTH = 8
 
@@ -105,8 +108,8 @@ class Check(object):
         """
 
         # Print results for logs
-        print self.results
-        print self.summary
+        print(self.results)
+        print(self.summary)
 
         if log_to_s3:
             self.log_output_to_s3(dest_sql, table, path_suffix)

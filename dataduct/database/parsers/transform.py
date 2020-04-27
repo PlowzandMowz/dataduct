@@ -1,6 +1,7 @@
 """Module containing basic transform functions on strings
 """
 
+from __future__ import absolute_import
 import re
 
 from pyparsing import CaselessKeyword

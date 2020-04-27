@@ -1,12 +1,14 @@
 """
 Base class for data pipeline objects
 """
+from __future__ import absolute_import
 from collections import defaultdict
 
 from ..s3 import S3Directory
 from ..s3 import S3File
 from ..s3 import S3Path
 from ..utils.exceptions import ETLInputError
+import six
 
 
 class PipelineObject(object):
@@ -33,7 +35,7 @@ class PipelineObject(object):
         self._id = id
         self.fields = defaultdict(list)
 
-        for key, value in kwargs.iteritems():
+        for key, value in six.iteritems(kwargs):
             if value is not None:
                 self[key] = value
 
@@ -57,7 +59,7 @@ class PipelineObject(object):
             result(list of S3Files): List of files to be uploaded to s3
         """
         result = self.additional_s3_files
-        for _, values in self.fields.iteritems():
+        for _, values in six.iteritems(self.fields):
             for value in values:
                 if isinstance(value, S3File) or isinstance(value, S3Directory):
                     result.append(value)
@@ -130,7 +132,7 @@ class PipelineObject(object):
             result: The AWS-readable dict format of the object
         """
         fields = []
-        for key, values in self.fields.iteritems():
+        for key, values in six.iteritems(self.fields):
             for value in values:
                 if isinstance(value, PipelineObject):
                     fields.append({'key': key, 'refValue': value.id})

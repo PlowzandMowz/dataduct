@@ -1,6 +1,7 @@
 """Script that checks for primary key violations on the input table
 """
 
+from __future__ import absolute_import
 import argparse
 import pandas.io.sql as pdsql
 from dataduct.data_access import redshift_connection

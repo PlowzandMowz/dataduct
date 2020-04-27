@@ -1,5 +1,6 @@
 """Script containing the database class object
 """
+from __future__ import absolute_import
 from copy import deepcopy
 
 from .relation import Relation
@@ -67,7 +68,7 @@ class Database(object):
     def relations(self):
         """Unsorted list of relations of the database
         """
-        return self._relations.values()
+        return list(self._relations.values())
 
     def relation(self, relation_name):
         """Get the relation with the given name
@@ -98,7 +99,7 @@ class Database(object):
                 self.relation(x) for x in relation.dependencies
                 if x != relation and self.relation(x) is not None]
         else:
-            relations_to_check = self._relations.values()
+            relations_to_check = list(self._relations.values())
 
         for relation in relations_to_check:
             if relation.full_name in visited:

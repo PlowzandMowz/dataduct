@@ -2,6 +2,7 @@
 """
 from .check import Check
 from .utils import render_output
+import six
 
 
 class ColumnCheck(Check):
@@ -58,7 +59,7 @@ class ColumnCheck(Check):
             value(str): Value for the key, unicode values are encoded as utf-8
         """
         value = data.loc[key].values[0]
-        if isinstance(value, unicode):
+        if isinstance(value, six.text_type):
             return value.encode('utf-8')
         return value
 

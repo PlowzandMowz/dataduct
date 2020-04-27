@@ -2,6 +2,7 @@
 Class for storing a S3 Log Path
 """
 
+from __future__ import absolute_import
 from os.path import join
 from .s3_path import S3Path
 

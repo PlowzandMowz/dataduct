@@ -1,5 +1,6 @@
 """Script that contains the sql statement class
 """
+from __future__ import absolute_import
 from copy import deepcopy
 from .utils import sanitize_sql
 from ..parsers import parse_create_table

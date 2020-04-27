@@ -1,5 +1,6 @@
 """Tests for Table
 """
+from __future__ import absolute_import
 from unittest import TestCase
 
 from .helpers import create_table

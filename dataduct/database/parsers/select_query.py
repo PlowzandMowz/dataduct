@@ -1,5 +1,6 @@
 """Select SQL parser
 """
+from __future__ import absolute_import
 from pyparsing import MatchFirst
 from pyparsing import ParseException
 from pyparsing import Word

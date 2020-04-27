@@ -1,6 +1,7 @@
 """
 Pipeline object class for the schedule
 """
+from __future__ import absolute_import
 from datetime import datetime
 from datetime import timedelta
 from pytimeparse import parse
